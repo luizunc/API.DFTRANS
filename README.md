@@ -588,5 +588,4 @@ A API permite requisições de origens diferentes (CORS habilitado).
 
 ---
 
-**Desenvolvido para o sistema ParadaEmDia**  
 **API DFTrans - Distrito Federal**
