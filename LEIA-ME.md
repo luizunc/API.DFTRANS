@@ -4,7 +4,7 @@
 
 ## Bem-vindo!
 
-Esta pasta contém a **documentação completa** da API DFTrans, utilizada pelo sistema ParadaEmDia para fornecer informações sobre o transporte público do Distrito Federal.
+Esta pasta contém a **documentação completa** da API DFTrans para fornecer informações sobre o transporte público do Distrito Federal.
 
 ---
 
@@ -226,7 +226,7 @@ Não é necessário API key ou token de autenticação.
 ## Ferramentas Recomendadas
 
 ### Bibliotecas de Mapas
-- **OpenLayers** - Usado no ParadaEmDia
+- **OpenLayers** - Biblioteca de mapas popular
 - **Leaflet** - Alternativa leve e popular
 - **Mapbox GL JS** - Mapas modernos e performáticos
 
@@ -246,7 +246,7 @@ Use as interfaces definidas em [TIPOS_DE_DADOS.md](TIPOS_DE_DADOS.md) para tipag
 A API é mantida pela **DFTrans** (Governo do Distrito Federal).
 
 ### Problemas com a Documentação?
-Entre em contato com o desenvolvedor do **ParadaEmDia**.
+Entre em contato com o desenvolvedor desta documentação.
 
 ### Dúvidas sobre Uso?
 Consulte:
@@ -313,5 +313,4 @@ Cobertura de 100% dos endpoints da API DFTrans.
 ---
 
 **API DFTrans - Distrito Federal**  
-**Sistema ParadaEmDia**  
 **Documentação criada em 2024**

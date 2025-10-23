@@ -178,7 +178,7 @@ node exemplos.js
 ### Bibliotecas Recomendadas
 
 #### Para Mapas (GeoJSON)
-- **OpenLayers** - Usado no ParadaEmDia
+- **OpenLayers** - Biblioteca de mapas popular
 - **Leaflet** - Alternativa leve
 - **Mapbox GL JS** - Mapas modernos
 
@@ -246,7 +246,7 @@ Sim, mas implemente:
 
 ### Como reportar problemas?
 
-A API é mantida pela DFTrans. Para problemas com a documentação, entre em contato com o desenvolvedor do ParadaEmDia.
+A API é mantida pela DFTrans. Para problemas com a documentação, entre em contato com a DFTrans.
 
 ### Existe limite de requisições?
 
@@ -259,7 +259,6 @@ Não há documentação oficial sobre limites, mas recomenda-se usar com modera�
 ### Recursos Oficiais
 
 - **API Base:** https://www.sistemas.dftrans.df.gov.br
-- **Sistema ParadaEmDia:** [../index.html](../index.html)
 
 ### Documentação
 
@@ -304,6 +303,4 @@ Esta documentação é fornecida "como está" para fins educacionais e de desenv
 
 ---
 
-**Desenvolvido para o sistema ParadaEmDia**  
 **API DFTrans - Distrito Federal**  
-**Última atualização: 2024**

@@ -25,8 +25,6 @@
 
 A API DFTrans fornece acesso a informações sobre o sistema de transporte público do Distrito Federal, incluindo linhas de ônibus, paradas, horários, itinerários, estações e muito mais.
 
-Esta API é utilizada pelo sistema **ParadaEmDia** para fornecer informações em tempo real aos usuários.
-
 ---
 
 ## Base URL
@@ -582,11 +580,9 @@ A API permite requisições de origens diferentes (CORS habilitado).
 
 ## Recursos Adicionais
 
-- Sistema ParadaEmDia: Interface web que utiliza esta API
-- OpenLayers: Biblioteca de mapas utilizada no projeto
+- OpenLayers: Biblioteca de mapas para visualização geográfica
 - GeoJSON: Formato padrão para dados geográficos
 
 ---
 
-**Desenvolvido para o sistema ParadaEmDia**  
 **API DFTrans - Distrito Federal**

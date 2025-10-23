@@ -183,7 +183,6 @@ $.get('https://www.sistemas.dftrans.df.gov.br/linha/numero/099.1',
 - [Documentação Completa](README.md)
 - [Exemplos de Código](site_exemplo/exemplos.js)
 - [Página de Demonstração](site_exemplo/exemplo.html)
-- [Sistema ParadaEmDia](../index.html)
 
 ---
 
