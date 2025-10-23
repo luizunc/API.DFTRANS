@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos API DFTrans</title>
+    <link rel="stylesheet" href="exemplo.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Exemplos API DFTrans</h1>
+
+        <div class="grid">
+            <!-- Exemplo 1: Buscar Linha -->
+            <div class="card">
+                <h2>1. Buscar Linha por Número</h2>
+                <div class="input-group">
+                    <label for="numeroLinha">Número da Linha:</label>
+                    <input type="text" id="numeroLinha" placeholder="Ex: 099.1" value="099.1">
+                </div>
+                <button onclick="buscarLinha()">Buscar Linha</button>
+                <div class="loading" id="loading1">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result1" style="display: none;"></div>
+            </div>
+
+            <!-- Exemplo 2: Buscar Linhas por Parada -->
+            <div class="card">
+                <h2>2. Linhas que Passam por uma Parada</h2>
+                <div class="input-group">
+                    <label for="codParada">Código da Parada:</label>
+                    <input type="text" id="codParada" placeholder="Ex: 3458" value="3458">
+                </div>
+                <button onclick="buscarLinhasPorParada()">Buscar Linhas</button>
+                <div class="loading" id="loading2">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result2" style="display: none;"></div>
+            </div>
+
+            <!-- Exemplo 3: Buscar Horários -->
+            <div class="card">
+                <h2>3. Horários de uma Linha</h2>
+                <div class="input-group">
+                    <label for="numeroLinhaHorario">Número da Linha:</label>
+                    <input type="text" id="numeroLinhaHorario" placeholder="Ex: 099.1" value="099.1">
+                </div>
+                <button onclick="buscarHorarios()">Buscar Horários</button>
+                <div class="loading" id="loading3">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result3" style="display: none;"></div>
+            </div>
+
+            <!-- Exemplo 4: Buscar Referências -->
+            <div class="card">
+                <h2>4. Buscar Referências</h2>
+                <div class="input-group">
+                    <label for="termoReferencia">Termo de Busca:</label>
+                    <input type="text" id="termoReferencia" placeholder="Ex: Brasília" value="Brasília">
+                </div>
+                <button onclick="buscarReferencias()">Buscar Referências</button>
+                <div class="loading" id="loading4">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result4" style="display: none;"></div>
+            </div>
+
+            <!-- Exemplo 5: Buscar Parada -->
+            <div class="card">
+                <h2>5. Informações de uma Parada</h2>
+                <div class="input-group">
+                    <label for="codParadaInfo">Código da Parada:</label>
+                    <input type="text" id="codParadaInfo" placeholder="Ex: 3458" value="3458">
+                </div>
+                <button onclick="buscarParada()">Buscar Parada</button>
+                <div class="loading" id="loading5">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result5" style="display: none;"></div>
+            </div>
+
+            <!-- Exemplo 6: Veículos em Tempo Real -->
+            <div class="card">
+                <h2>6. Veículos em Tempo Real</h2>
+                <div class="input-group">
+                    <label for="numeroLinhaVeiculos">Número da Linha:</label>
+                    <input type="text" id="numeroLinhaVeiculos" placeholder="Ex: 099.1" value="099.1">
+                </div>
+                <button onclick="buscarVeiculos()">Buscar Veículos</button>
+                <div class="loading" id="loading6">
+                    <div class="spinner"></div>
+                    Carregando...
+                </div>
+                <div class="result" id="result6" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://www.sistemas.dftrans.df.gov.br';
+
+        // Função auxiliar para fazer requisições
+        async function apiGet(endpoint) {
+            const response = await fetch(`${API_BASE_URL}${endpoint}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        }
+
+        // Função auxiliar para mostrar loading
+        function showLoading(id) {
+            document.getElementById(`loading${id}`).classList.add('active');
+            document.getElementById(`result${id}`).style.display = 'none';
+        }
+
+        // Função auxiliar para esconder loading
+        function hideLoading(id) {
+            document.getElementById(`loading${id}`).classList.remove('active');
+        }
+
+        // Função auxiliar para mostrar resultado
+        function showResult(id, html, isError = false) {
+            hideLoading(id);
+            const resultDiv = document.getElementById(`result${id}`);
+            resultDiv.innerHTML = html;
+            resultDiv.style.display = 'block';
+            if (isError) {
+                resultDiv.classList.add('error');
+            } else {
+                resultDiv.classList.remove('error');
+            }
+        }
+
+        // Exemplo 1: Buscar Linha
+        async function buscarLinha() {
+            const numeroLinha = document.getElementById('numeroLinha').value;
+            showLoading(1);
+
+            try {
+                const linha = await apiGet(`/linha/numero/${numeroLinha}`);
+                
+                const html = `
+                    <h3>Linha ${linha.numero}</h3>
+                    <div class="item">
+                        <strong>Descrição:</strong> ${linha.descricao || 'N/A'}
+                    </div>
+                    <div class="item">
+                        <strong>Sentido:</strong> ${linha.sentido || 'N/A'}
+                    </div>
+                    <div class="item">
+                        <strong>Tarifa:</strong> R$ ${linha.faixaTarifaria?.tarifa?.toFixed(2) || 'N/A'}
+                    </div>
+                    <div class="item">
+                        <strong>Operadoras:</strong> ${linha.operadoras?.join(', ') || 'N/A'}
+                    </div>
+                    <h3>JSON Completo:</h3>
+                    <pre>${JSON.stringify(linha, null, 2)}</pre>
+                `;
+                
+                showResult(1, html);
+            } catch (error) {
+                showResult(1, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+
+        // Exemplo 2: Buscar Linhas por Parada
+        async function buscarLinhasPorParada() {
+            const codParada = document.getElementById('codParada').value;
+            showLoading(2);
+
+            try {
+                const linhas = await apiGet(`/linha/parada/codigo/${codParada}`);
+                
+                let html = `<h3>Linhas na Parada ${codParada}</h3>`;
+                html += `<p><strong>Total:</strong> ${linhas.length} linhas</p>`;
+                
+                linhas.forEach((linha, index) => {
+                    html += `
+                        <div class="item">
+                            <strong>${index + 1}. ${linha.numero}</strong><br>
+                            ${linha.descricao}
+                        </div>
+                    `;
+                });
+                
+                showResult(2, html);
+            } catch (error) {
+                showResult(2, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+
+        // Exemplo 3: Buscar Horários
+        async function buscarHorarios() {
+            const numeroLinha = document.getElementById('numeroLinhaHorario').value;
+            showLoading(3);
+
+            try {
+                const horarios = await apiGet(`/horario/linha/numero/${numeroLinha}`);
+                
+                let html = `<h3>Horários da Linha ${numeroLinha}</h3>`;
+                
+                if (horarios.horarios && horarios.horarios.length > 0) {
+                    horarios.horarios.forEach(h => {
+                        html += `
+                            <div class="item">
+                                <strong>${h.diaSemana} - ${h.turno}</strong><br>
+                                ${h.horarios?.slice(0, 10).join(', ')}${h.horarios?.length > 10 ? '...' : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    html += '<p>Nenhum horário encontrado.</p>';
+                }
+                
+                showResult(3, html);
+            } catch (error) {
+                showResult(3, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+
+        // Exemplo 4: Buscar Referências
+        async function buscarReferencias() {
+            let termo = document.getElementById('termoReferencia').value;
+            showLoading(4);
+
+            try {
+                // Codificar caractere '/'
+                termo = termo.replace('/', '%26%2347%3B');
+                
+                const referencias = await apiGet(`/referencia/find/${termo}/10`);
+                
+                let html = `<h3>Referências para "${termo}"</h3>`;
+                html += `<p><strong>Total:</strong> ${referencias.length} referências</p>`;
+                
+                referencias.forEach((ref, index) => {
+                    html += `
+                        <div class="item">
+                            <strong>${index + 1}. ${ref.descricao}</strong><br>
+                            ID: ${ref.sequencialRef} | Tipo: ${ref.tipo}
+                        </div>
+                    `;
+                });
+                
+                showResult(4, html);
+            } catch (error) {
+                showResult(4, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+
+        // Exemplo 5: Buscar Parada
+        async function buscarParada() {
+            const codParada = document.getElementById('codParadaInfo').value;
+            showLoading(5);
+
+            try {
+                const parada = await apiGet(`/parada/cod/${codParada}`);
+                
+                const html = `
+                    <h3>Parada ${parada.codDftrans}</h3>
+                    <div class="item">
+                        <strong>Descrição:</strong> ${parada.descricao || 'N/A'}
+                    </div>
+                    <div class="item">
+                        <strong>Sentido:</strong> ${parada.sentido || 'N/A'}
+                    </div>
+                    <div class="item">
+                        <strong>Coordenadas:</strong> ${parada.latitude}, ${parada.longitude}
+                    </div>
+                    <h3>JSON Completo:</h3>
+                    <pre>${JSON.stringify(parada, null, 2)}</pre>
+                `;
+                
+                showResult(5, html);
+            } catch (error) {
+                showResult(5, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+
+        // Exemplo 6: Buscar Veículos
+        async function buscarVeiculos() {
+            const numeroLinha = document.getElementById('numeroLinhaVeiculos').value;
+            showLoading(6);
+
+            try {
+                const geojson = await apiGet(`/gps/linha/${numeroLinha}/geo/recent`);
+                
+                let html = `<h3>Veículos da Linha ${numeroLinha}</h3>`;
+                html += `<p><strong>Total:</strong> ${geojson.features.length} veículos</p>`;
+                
+                geojson.features.forEach((feature, index) => {
+                    const props = feature.properties;
+                    const coords = feature.geometry.coordinates;
+                    
+                    html += `
+                        <div class="item">
+                            <strong>Veículo ${index + 1}: ${props.veiculo}</strong><br>
+                            Operadora: ${props.operadora}<br>
+                            Velocidade: ${props.velocidade} km/h<br>
+                            Posição: [${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}]
+                        </div>
+                    `;
+                });
+                
+                showResult(6, html);
+            } catch (error) {
+                showResult(6, `<h3>Erro</h3><p>${error.message}</p>`, true);
+            }
+        }
+    </script>
+</body>
+</html>
