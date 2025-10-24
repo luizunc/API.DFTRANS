@@ -1,5 +1,5 @@
 # Documentação da API DFTrans
-## Api 
+Documentação da API pública do sistema DFTrans. Esta API não foi desenvolvida por mim, apenas realizei seu estudo e documentação por conta própria.
 
 ## Índice
 
