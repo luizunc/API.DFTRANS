@@ -1,5 +1,5 @@
 # Documentação da API DFTrans
-Documentação da API pública do sistema DFTrans. Esta API não foi desenvolvida por mim, apenas realizei seu estudo e documentação por conta própria.
+Bem-vindo à documentação completa da API DFTrans! Este projeto contém todos os recursos necessários para integrar e utilizar a API do sistema de transporte público do Distrito Federal.
 
 ## Índice
 
